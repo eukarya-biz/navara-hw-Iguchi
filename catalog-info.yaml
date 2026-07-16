@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: navara-template
+  namespace: reearth
+  description: This is a project to try the alpha version of Navara in developer workshop.
+  annotations:
+    github.com/project-slug: reearth/navara-template
+  links:
+  - url: https://github.com/reearth/navara-template
+    title: GitHub
+    icon: github
+  tags:
+  - typescript
+spec:
+  type: service
+  lifecycle: experimental
+  owner: reearth/navara
