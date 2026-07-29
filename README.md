@@ -45,7 +45,7 @@
 | `registerMesh` / `addMesh`（`MeshDesc`） | 波を `ShaderMaterial` のカスタムメッシュとして登録・配置 |
 | `getPassKey()` → `"transparent"` | 波を transparent パスに置く |
 | `geodeticToVector3` / `eastNorthUpToFixedFrame` | 緯度経度から ENU frame を作り、波の plane をメートル単位で組む |
-| `addEffect`（`ssr`） | SSR（screen space reflection） |
+| `addEffect`（`ssr`） | SSR（screen space reflection）を追加している。⚠️ 内蔵の水面レイヤーを使っていないため、見た目にどの程度寄与しているかは未検証 |
 | `addDefaultPhotorealScene` | sun / sky / stars / aerial perspective / lens flare / tone mapping / SMAA |
 | `atmosphere.date` | 太陽位置（現地時間 15:00 に固定） |
 | `toneMappingExposure` | 露出（UI から変更可） |
