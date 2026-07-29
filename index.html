@@ -5,6 +5,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Navara</title>
+  <!-- エラーを画面に出す。真っ黒になったとき原因が分かるように（シェーダーのコンパイル失敗など） -->
+  <script>
+    window.__errs = [];
+    function showErr(msg) {
+      window.__errs.push(String(msg));
+      var el = document.getElementById("err");
+      if (!el) {
+        el = document.createElement("pre");
+        el.id = "err";
+        el.style.cssText =
+          "position:fixed;left:0;top:0;z-index:9999;margin:0;padding:8px;max-width:100vw;" +
+          "max-height:40vh;overflow:auto;color:#ff5555;background:rgba(0,0,0,.75);" +
+          "pointer-events:none;" +
+          "font:11px/1.4 monospace;white-space:pre-wrap";
+        (document.body || document.documentElement).appendChild(el);
+      }
+      el.textContent = window.__errs.join("\n\n");
+    }
+    window.addEventListener("error", (e) => showErr(e.message + "\n" + (e.error?.stack ?? "")));
+    window.addEventListener("unhandledrejection", (e) => showErr("unhandled: " + e.reason));
+    const _ce = console.error.bind(console);
+    console.error = (...a) => { showErr(a.join(" ")); _ce(...a); };
+  </script>
   <script type="module" src="./src/main.ts"></script>
 </head>
 
