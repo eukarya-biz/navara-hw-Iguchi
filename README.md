@@ -79,7 +79,10 @@ src/
 ├── cameraPanel.ts  カメラ値の表示 UI
 └── lookPanel.ts    ランタイム調整 UI
 public/
-└── waternormals.jpg  water normal texture（下記クレジット参照）
+├── waternormals.jpg    water normal texture（下記クレジット参照）
+└── assets/
+    ├── atmosphere/     大気・星のテクスチャ（同上）
+    └── noise/          blue noise テクスチャ（同上）
 ```
 
 ### waterMask.ts
@@ -123,7 +126,13 @@ signed distance field はブラウザ上で毎回計算しており、**派生�
 
 ### 同梱アセット
 
-- `public/waternormals.jpg` — Navara パッケージ同梱の water normal texture を複製したもの。既定の参照先（`import.meta.env.BASE_URL` + `assets/water/...`）が解決できないため、明示的に URL を指定している
+Navara は自分が使うテクスチャを `new URL("./assets/<種類>", import.meta.url)` で探す。つまり「読み込まれた JS ファイルの隣の `assets/`」を見る。ビルドすると JS の置き場所が変わってこの参照が外れるため、`vite.config.ts` で `assetsDir: "."`（JS を `dist` 直下に出力）にし、`public/assets/` にパッケージと同じ階層で実ファイルを置いて解決させている。
+
+いずれも `@navara/three`（MIT OR Apache-2.0）同梱のファイルを複製したもの。
+
+- `public/assets/atmosphere/` — `transmittance.exr` / `scattering.exr` / `irradiance.exr` / `higher_order_scattering.exr` / `stars.bin`。sky・sun・aerial perspective が使うプリコンピュート済みテクスチャ。出所は [takram-design-engineering/three-geospatial](https://github.com/takram-design-engineering/three-geospatial)（MIT, © 2024 Shota Matsuda）。大気散乱は Eric Bruneton の [Precomputed Atmospheric Scattering](https://github.com/ebruneton/precomputed_atmospheric_scattering)、星は Yale Bright Star Catalog version 5 に基づく
+- `public/assets/noise/stbn.bin` — spatio-temporal blue noise texture。出所は同じ three-geospatial
+- `public/waternormals.jpg` — water normal texture。出所は three.js の [examples/textures/waternormals.jpg](https://github.com/mrdoob/three.js/blob/54ac263593c81b669ca9a089491ddd9e240427d2/examples/textures/waternormals.jpg)。上記の相対参照ではなく、`waterTexture.url` に明示的に URL を渡して読ませている
 
 ## License
 
